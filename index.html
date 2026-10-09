@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6f273c">
+<title>Our Love Story — A Wedding Anniversary Book</title>
+<style>
+:root{--wine:#6f273c;--rose:#c77788;--blush:#f7e8e8;--paper:#fffaf3;--ink:#422a2e;--gold:#d8b778}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:Georgia,"Times New Roman",serif;background:radial-gradient(ellipse at top,#fff8f0 0,#f3dfe2 52%,#e9cbd2 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#9b5b68 .6px,transparent .6px);background-size:9px 9px}
+header{text-align:center;padding:26px 16px 8px;position:relative;z-index:2}
+.kicker{letter-spacing:.24em;text-transform:uppercase;font:11px Arial,sans-serif;color:#985a67}
+h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:normal;margin:8px 0;color:var(--wine);font-style:italic}
+.subtitle{font:13px Arial,sans-serif;letter-spacing:.08em;color:#875d64}
+.stage{display:flex;justify-content:center;align-items:center;padding:20px 18px 10px;perspective:1800px;position:relative;z-index:1}
+.book{position:relative;width:min(920px,94vw);height:clamp(420px,62vw,590px);max-height:72vh;min-height:410px;transform-style:preserve-3d;filter:drop-shadow(0 25px 25px #672c3c2b)}
+.book:before{content:"";position:absolute;left:50%;top:1.5%;bottom:1.5%;width:14px;transform:translateX(-50%);background:linear-gradient(90deg,#d4b9a1,#fff8ed 35%,#c7a88f 75%,#f8e8d6);z-index:5;border-radius:3px;box-shadow:0 0 9px #67414b35}
+.spread{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;transform-style:preserve-3d}
+.page{position:relative;overflow:hidden;background:var(--paper);border:1px solid #dfc9b4;box-shadow:inset 0 0 28px #8d5e3d0c;padding:clamp(18px,3.4vw,42px);display:flex;flex-direction:column;justify-content:center;min-width:0}
+.page.left{border-radius:9px 0 0 9px;background:linear-gradient(90deg,#eadbc7 0,#fffaf3 4%,#fffaf3 100%)}
+.page.right{border-radius:0 9px 9px 0;background:linear-gradient(270deg,#eadbc7 0,#fffaf3 4%,#fffaf3 100%)}
+.page-number{position:absolute;bottom:13px;left:0;right:0;text-align:center;font:10px Arial,sans-serif;letter-spacing:.18em;color:#b69a8b}
+.page h2{font-weight:normal;font-size:clamp(1.35rem,3vw,2.2rem);font-style:italic;color:var(--wine);margin:0 0 12px;text-align:center}
+.page p{font-size:clamp(.9rem,1.4vw,1.05rem);line-height:1.75;text-align:center;margin:6px auto;max-width:38em}
+.ornament{text-align:center;color:var(--gold);font-size:25px;margin:8px}
+.cover{background:linear-gradient(145deg,#69273c,#8c4052 55%,#4b1c2b);color:#fff8f0;align-items:center;text-align:center;border:7px double #d8b778;outline:1px solid #fff4d5;outline-offset:-14px}
+.cover .small{font:11px Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f1d8b1}
+.cover h2{color:#fff8f0;font-size:clamp(2.5rem,6vw,5rem);line-height:1.02;margin:24px 0 18px}
+.cover p{color:#f8e8df;max-width:260px}
+.cover .flower{font-size:38px;color:#e9ca8e;margin:10px}
+.photo-frame{background:#fff;padding:8px 8px 30px;box-shadow:0 5px 18px #422a2e20;transform:rotate(-1deg);max-width:100%;margin:auto; width:100%;height:min(75%,410px);display:flex;align-items:center;justify-content:center;position:relative}
+.photo-frame img{width:100%;height:100%;object-fit:contain;display:block;background:#f1e7df}
+.photo-caption{font-style:italic;color:#8b5964;text-align:center;font-size:clamp(.9rem,1.5vw,1.12rem);margin:15px 0 0}
+.text-small{font-size:.88rem!important;color:#8b6668}
+.page-turn{position:absolute;inset:0;z-index:10;transform-style:preserve-3d;transform-origin:left center;transition:transform .75s cubic-bezier(.2,.72,.2,1);pointer-events:none}
+.page-turn .turn-front,.page-turn .turn-back{position:absolute;inset:0;backface-visibility:hidden;display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border:1px solid #dfc9b4;overflow:hidden}
+.page-turn .turn-back{transform:rotateY(180deg)}
+.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 12px 8px;position:relative;z-index:2}
+button,.file-label{font:13px Arial,sans-serif;border:1px solid #a96073;border-radius:999px;background:#fff8f3;color:var(--wine);padding:12px 19px;cursor:pointer;transition:.2s}
+button:hover,.file-label:hover{background:var(--wine);color:#fff}
+button:disabled{opacity:.35;cursor:not-allowed}
+#pageStatus{font:12px Arial,sans-serif;letter-spacing:.08em;color:#805560;min-width:88px;text-align:center}
+.music-row{text-align:center;padding:6px 16px 20px;position:relative;z-index:2}
+.music-row button{padding:10px 17px}
+.music-note{font:12px Arial,sans-serif;color:#815d63;margin-top:8px}
+.upload{display:inline-flex;align-items:center;gap:8px}
+input[type=file]{display:none}
+footer{text-align:center;padding:8px 16px 30px;font:11px Arial,sans-serif;letter-spacing:.07em;color:#936b71;position:relative;z-index:1}
+@media(max-width:600px){
+ .stage{padding:14px 8px}.book{height:470px;min-height:0;width:96vw}.page{padding:15px 12px}.page p{line-height:1.55}.page-number{bottom:8px}
+ .photo-frame{height:58%;padding:5px 5px 22px}.cover h2{font-size:2.3rem}.cover .small{font-size:9px;letter-spacing:.15em}
+ .controls{gap:7px}.controls button{padding:10px 13px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.page-turn{transition:none}}
+
+/* Music-first romantic opening */
+.opening-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at top,#fff8f0 0,#f3dfe2 52%,#6f273c 150%);text-align:center;transition:opacity .45s ease,visibility .45s ease}
+.opening-screen.dismissed{opacity:0;visibility:hidden;pointer-events:none}
+.opening-card{width:min(520px,94vw);padding:42px 28px;border:5px double #d8b778;outline:1px solid #fff4d5;outline-offset:-13px;border-radius:8px;background:linear-gradient(145deg,#69273c,#8c4052 55%,#4b1c2b);color:#fff8f0;box-shadow:0 22px 60px #422a2e45}
+.opening-card .opening-flower{font-size:36px;color:#e9ca8e;margin:10px}
+.opening-card h2{font-size:clamp(2.5rem,9vw,4rem);font-weight:normal;font-style:italic;line-height:1.05;margin:12px 0 16px}
+.opening-card p{font-size:16px;line-height:1.7;color:#f8e8df}
+.opening-card button{margin-top:14px;background:#fff8f0;color:#6f273c;border-color:#d8b778;font-size:14px;padding:15px 25px}
+.opening-hint{font:11px Arial,sans-serif;letter-spacing:.05em;color:#f4dce0;margin-top:14px}
+body.music-gate-open{overflow:hidden}
+
+</style>
+</head>
+<body class="music-gate-open">
+<div class="opening-screen" id="openingScreen" role="dialog" aria-modal="true" aria-labelledby="openingTitle">
+  <div class="opening-card">
+    <div class="opening-flower">❦ ♡ ❦</div>
+    <div class="kicker" style="color:#f1d8b1">A little surprise for you</div>
+    <h2 id="openingTitle">Our Love Story</h2>
+    <p>Before you turn a single page, there is a song I want you to hear.
+    <br>Made with all my love, for us.</p>
+    <button id="openStoryBtn" type="button">♫ Open our story &amp; play our song</button>
+    <div class="opening-hint">Tap once to begin our song and reveal your memories ♡</div>
+  </div>
+</div>
+<header>
+  <div class="kicker">A keepsake made with love</div>
+  <h1>Our Love Story</h1>
+  <div class="subtitle">Every page holds a piece of us</div>
+</header>
+<main>
+<section class="stage" aria-label="Interactive wedding album">
+  <div class="book" id="book">
+    <div class="spread" id="spread">
+      <article class="page left cover" id="leftPage">
+        <div class="small">Our very own story</div>
+        <div class="flower">❦</div>
+        <h2>Our<br>Love Story</h2>
+        <p>A little book of the day our forever began.</p>
+        <div class="ornament">♡</div>
+        <div class="small">Turn the page</div>
+        <span class="page-number">♡</span>
+      </article>
+      <article class="page right" id="rightPage">
+        <h2>To My Favorite Person</h2>
+        <div class="ornament">✦ ♡ ✦</div>
+        <p>Some moments are too precious to leave in a camera roll. This book is a little place for our memories, our promises, and the love that keeps growing.</p>
+        <p class="text-small">Turn each page slowly. This story belongs to us.</p>
+        <span class="page-number">01</span>
+      </article>
+    </div>
+    <div class="page-turn" id="turner" aria-hidden="true" style="display:none">
+      <div class="turn-front" id="turnFront"></div>
+      <div class="turn-back" id="turnBack"></div>
+    </div>
+  </div>
+</section>
+<div class="controls">
+  <button id="prevBtn" type="button" disabled>← Previous</button>
+  <span id="pageStatus" aria-live="polite">Cover · 1 / 7</span>
+  <button id="nextBtn" type="button">Next page →</button>
+</div>
+<div class="music-row">
+  <button id="musicBtn" type="button">♫ Play our song</button>
+  <div class="music-note" id="musicNote">Our song will start as soon as your browser allows it.</div>
+  <label class="file-label upload" for="songInput">＋ Choose song</label>
+  <input id="songInput" type="file" accept="audio/*">
+  <audio id="audio" preload="auto" autoplay playsinline><source src="assets/our-song.mp3" type="audio/mpeg"></audio>
+</div>
+</main>
+<footer>MADE WITH LOVE · OUR LOVE STORY</footer>
+<script>
+const photos = [{"file": "assets/YAS_6744.jpg", "name": "YAS_6744"}, {"file": "assets/YAS_6845.jpg", "name": "YAS_6845"}, {"file": "assets/YAS_6997.jpg", "name": "YAS_6997"}, {"file": "assets/YAS_7531.jpg", "name": "YAS_7531"}, {"file": "assets/YAS_7548.jpg", "name": "YAS_7548"}, {"file": "assets/YAS_7557.jpg", "name": "YAS_7557"}, {"file": "assets/YAS_7561.jpg", "name": "YAS_7561"}, {"file": "assets/YAS_7566.jpg", "name": "YAS_7566"}, {"file": "assets/YAS_7568.jpg", "name": "YAS_7568"}, {"file": "assets/YAS_7570.jpg", "name": "YAS_7570"}, {"file": "assets/image(20261009-202004).png", "name": "image(20261009-202004)"}, {"file": "assets/image(20261009-202036).png", "name": "image(20261009-202036)"}, {"file": "assets/image(20261009-202133).png", "name": "image(20261009-202133)"}];
+const photoCaptions = [
+ ["The Day Our Forever Began","The beginning of a beautiful new chapter."],
+ ["A Promise in Every Smile","One promise, two hearts, and a lifetime ahead."],
+ ["My Favorite Yes","The moment our story became a forever."],
+ ["A Memory to Keep","May we always find our way back to this happiness."],
+ ["Our Wedding Day","A day full of love, joy, and memories to keep."],
+ ["The Way You Make Me Feel","Somehow, you still make my heart feel at home."],
+ ["A Beautiful Beginning","One of my favorite chapters will always be us."],
+ ["Side by Side","Every step is better when I take it with you."],
+ ["Little Moments, Forever Memories","The smallest moments with you become the biggest treasures."],
+ ["My Always","Today, tomorrow, and all the days still waiting for us."],
+ ["A Love Worth Celebrating","I would choose this life with you all over again."],
+ ["Our Kind of Magic","No perfect story needed—just you and me, choosing love."],
+ ["Still Falling for You","After every page, my favorite part is still you."]
+];
+const pages = [
+ {type:"intro", title:"To My Favorite Person", text:"Some moments are too precious to leave in a camera roll. This book is a little place for our memories, our promises, and the love that keeps growing.", sub:"Turn each page slowly. This story belongs to us."},
+ ...photos.map((photo,i)=>({type:"photo",title:photoCaptions[i]?.[0] || "A Memory to Treasure",file:photo.file,caption:photoCaptions[i]?.[1] || "A moment from our story that I will always keep close."})),
+ {type:"letter", title:"A Little Love Letter", text:`My Papedtayankoo,
+Thank you for being part of my life and for making our story ours. When I look back at these memories, I am reminded that the most beautiful part was never just the day itself—it was choosing each other and continuing to choose each other.
+May we keep growing, laughing, learning, and holding each other close through every season. Whatever pages come next, I want to write them with you.
+Always yours,
+Your PAPEDTAYANKOO ♡`},
+ {type:"end", title:"To All Our Tomorrows", text:"This is not the end of our story. It is only another page. Here is to more ordinary days made special, more dreams shared, and more years of loving you.", sub:"And still, I choose you. ♡"}
+];
+let index = 0;
+let busy = false;
+const left = document.getElementById("leftPage");
+const right = document.getElementById("rightPage");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const status = document.getElementById("pageStatus");
+const turner = document.getElementById("turner");
+const turnFront = document.getElementById("turnFront");
+const turnBack = document.getElementById("turnBack");
+const audio = document.getElementById("audio");
+const musicBtn = document.getElementById("musicBtn");
+const musicNote = document.getElementById("musicNote");
+function safeText(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function renderPage(item, side, num){
+ const el=document.createElement("article"); el.className="page "+side;
+ if(item.type==="cover"){el.classList.add("cover");el.innerHTML=`<div class="small">Our very own story</div><div class="flower">❦</div><h2>Our<br>Love Story</h2><p>A little book of the day our forever began.</p><div class="ornament">♡</div><div class="small">Turn the page</div>`;}
+ else if(item.type==="photo"){
+   el.innerHTML=`<h2>${safeText(item.title)}</h2><div class="photo-frame"><img src="${safeText(item.file||"")}" alt="${safeText(item.title)}"></div><div class="photo-caption">${safeText(item.caption||"A memory to treasure.")}</div>`;
+   const img=el.querySelector("img");img.onerror=()=>{img.style.display="none";const f=el.querySelector(".photo-frame");f.innerHTML='<p class="text-small">Add your wedding photos to the assets folder and update the photo list in index.html.</p>';};
+ } else if(item.type==="letter"){
+   el.innerHTML=`<h2>${safeText(item.title)}</h2><div class="ornament">❦</div><p style="white-space:pre-line;text-align:left;font-style:italic">${safeText(item.text)}</p>`;
+ } else {
+   el.innerHTML=`<h2>${safeText(item.title)}</h2><div class="ornament">✦ ♡ ✦</div><p>${safeText(item.text||"")}</p>${item.sub?`<p class="text-small">${safeText(item.sub)}</p>`:""}`;
+ }
+ el.insertAdjacentHTML("beforeend",`<span class="page-number">${num===0?"♡":String(num).padStart(2,"0")}</span>`);
+ return el;
+}
+function displaySpread(){
+ const spread=document.getElementById("spread");
+ const leftItem = index===0 ? {type:"cover"} : pages[index-1] || pages[pages.length-1];
+ const rightItem = pages[index] || pages[0];
+ const oldLeft=spread.children[0], oldRight=spread.children[1];
+ spread.replaceChild(renderPage(leftItem,"left",index===0?0:index),oldLeft);
+ spread.replaceChild(renderPage(rightItem,"right",index+1),oldRight);
+ const fresh = spread.children;
+ window.leftPage=fresh[0]; window.rightPage=fresh[1];
+ status.textContent = index===0 ? `Cover · 1 / ${pages.length+1}` : `Pages ${index+1}–${index+2} / ${pages.length+1}`;
+ prevBtn.disabled=index===0; nextBtn.disabled=index>=pages.length-1;
+}
+function flip(direction){
+ if(busy) return;
+ const target = index + direction;
+ if(target<0 || target>=pages.length) return;
+ busy=true;
+ const currentLeft=window.leftPage||document.getElementById("leftPage");
+ const currentRight=window.rightPage||document.getElementById("rightPage");
+ turner.style.display="block";
+ turner.style.transform="rotateY(0deg)";
+ turnFront.innerHTML="";turnBack.innerHTML="";
+ turnFront.appendChild(currentRight.cloneNode(true));
+ turnBack.appendChild(renderPage(pages[target],"left",target+1));
+ requestAnimationFrame(()=>{turner.style.transform=direction>0?"rotateY(-180deg)":"rotateY(180deg)";});
+ setTimeout(()=>{
+   index=target;
+   turner.style.display="none";turner.style.transform="rotateY(0deg)";
+   displaySpread();busy=false;
+ },760);
+}
+nextBtn.addEventListener("click",()=>flip(1));
+prevBtn.addEventListener("click",()=>flip(-1));
+document.getElementById("book").addEventListener("click",e=>{
+ if(e.target.closest("button")||e.target.closest("label"))return;
+ const rect=document.getElementById("book").getBoundingClientRect();
+ if(e.clientX>rect.left+rect.width*.53) flip(1); else flip(-1);
+});
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")flip(1);if(e.key==="ArrowLeft")flip(-1);});
+async function startSong(){
+ try{
+   audio.volume=1;
+   await audio.play();
+   musicBtn.textContent="Ⅱ Pause our song";
+   musicNote.textContent="Playing our song ♡ Enjoy every memory.";
+   return true;
+ }catch(e){
+   musicBtn.textContent="♫ Start our song";
+   musicNote.textContent="Your browser blocked automatic playback. Tap ‘Start our song’ to listen. ♡";
+   return false;
+ }
+}
+function revealStory(){
+ const screen=document.getElementById("openingScreen");
+ screen.classList.add("dismissed");
+ document.body.classList.remove("music-gate-open");
+ setTimeout(()=>screen.remove(),500);
+}
+document.getElementById("openStoryBtn").addEventListener("click",async()=>{
+ // Start playback directly within the user's click gesture (browser autoplay policy).
+ const started=await startSong();
+ revealStory();
+ if(!started){musicNote.textContent="If the song did not start, tap ‘Start our song’ below. ♡";}
+});
+musicBtn.addEventListener("click",async()=>{
+ if(audio.paused){await startSong();}
+ else{audio.pause();musicBtn.textContent="♫ Play our song";musicNote.textContent="Paused — press play whenever you like.";}
+});
+audio.addEventListener("playing",()=>{musicBtn.textContent="Ⅱ Pause our song";musicNote.textContent="Playing our song ♡ Enjoy every memory.";});
+audio.addEventListener("pause",()=>{if(!audio.ended){musicBtn.textContent="♫ Play our song";}});
+audio.addEventListener("ended",()=>{musicBtn.textContent="♫ Play our song";musicNote.textContent="A little music for our memories.";});
+document.getElementById("songInput").addEventListener("change",e=>{
+ const file=e.target.files[0];if(!file)return;
+ const url=URL.createObjectURL(file);audio.src=url;audio.querySelectorAll("source").forEach(s=>s.remove());
+ musicNote.textContent="Selected: "+file.name+" · For the published website, place the song in assets and reference it in index.html.";
+ musicBtn.textContent="♫ Play our song";
+});
+displaySpread();
+// Attempt autoplay immediately. If the browser blocks sound, the romantic opening screen
+// remains until the visitor taps the button, which provides the required user gesture.
+window.addEventListener("load",async()=>{
+ const started=await startSong();
+ if(started) revealStory();
+});
+</script>
+</body>
+</html>
